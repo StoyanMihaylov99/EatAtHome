@@ -79,4 +79,14 @@ public class Restaurant extends BaseEntity {
         this.orders = orders;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "name='" + name + '\'' +
+                ", city=" + city +
+                ", pictureUrl='" + pictureUrl + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

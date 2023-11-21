@@ -1,6 +1,7 @@
 package com.example.eatathome.model.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
 
 import java.util.List;
 import java.util.Set;
@@ -78,6 +79,14 @@ public class User extends BaseEntity {
         return this;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", addresses=" + addresses +
+                '}';
+    }
 }

@@ -58,4 +58,13 @@ public class Order extends BaseEntity {
         this.totalCost = totalCost;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "DateCreatedOrder=" + DateCreatedOrder +
+                ", user=" + user +
+                ", totalCost=" + totalCost +
+                '}';
+    }
 }

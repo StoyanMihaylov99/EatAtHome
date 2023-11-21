@@ -1,7 +1,9 @@
 package com.example.eatathome.repository;
 
-import org.apache.catalina.User;
+import com.example.eatathome.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends JpaRepository<String, User> {
+@Repository
+public interface UserRepository extends JpaRepository<User,String> {
 }
