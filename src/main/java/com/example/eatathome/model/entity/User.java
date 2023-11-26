@@ -2,13 +2,19 @@ package com.example.eatathome.model.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User {
+
+    @Id
+    @GeneratedValue(generator = "uuid-string")
+    @GenericGenerator(name = "uuid-string",strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -17,12 +23,20 @@ public class User extends BaseEntity {
     private String email;
     @Column(name = "password")
     private String password;
-    @ManyToMany
-    private Set<Menu> menu;
-    @Transient
-    private List<String> addresses;
+    @OneToMany
+    private Set<Restaurant> restaurants;
 
     public User() {
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public User setId(String id) {
+        this.id = id;
+        return this;
     }
 
     public String getFirstName() {
@@ -61,24 +75,6 @@ public class User extends BaseEntity {
         return this;
     }
 
-    public Set<Menu> getMenu() {
-        return menu;
-    }
-
-    public User setMenu(Set<Menu> menu) {
-        this.menu = menu;
-        return this;
-    }
-
-    public List<String> getAddresses() {
-        return addresses;
-    }
-
-    public User setAddresses(List<String> addresses) {
-        this.addresses = addresses;
-        return this;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -86,7 +82,6 @@ public class User extends BaseEntity {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", addresses=" + addresses +
                 '}';
     }
 }

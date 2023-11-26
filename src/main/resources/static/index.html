@@ -21,6 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
 </head>
 <body>
 
@@ -31,7 +32,7 @@
     </div>
     <div class="header-right">
         <ul>
-            <li><a href="#">HOME</a></li>
+            <li><a href="/">HOME</a></li>
             <li><a href="#">EAT</a></li>
             <li><a href="#">SING UP</a></li>
             <li><a href="#">LANG</a></li>
@@ -43,16 +44,27 @@
     <div class="banner-caption text-center">
         <h2>Are you hungry?</h2>
         <p class="text-light fs-5">You are at the right place</p><br><br><br>
-        <button>Let's Order!</button>
+        <div class="dropdown">
+            <button class="dropbtn">Let's Order!</button>
+            <div class="dropdown-content" th:each="city : ${CityOptions}">
+                <a href="#link1" th:field="">Link 1</a>
+                <a href="#link2">Link 2</a>
+                <a href="#link3">Link 3</a>
+                <a href="#link3">Link 3</a>
+                <a href="#link3">Link 3</a>
+                <a href="#link3">Link 3</a>
+                <a href="#link3">Link 3</a>
+
+            </div>
+        </div>
+
     </div>
-</div>
 </div>
 
 
 <div class="our text-center">
     <h4>Our Service</h4>
     <p>Whether you're a hungry consumer or a restaurant, we can help.</p>
-</div>
 </div>
 
 <div class="container-service-items">

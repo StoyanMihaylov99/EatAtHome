@@ -1,17 +1,13 @@
 package com.example.eatathome.model.dto;
-
 import com.example.eatathome.model.entity.Menu;
 import com.example.eatathome.model.entity.Order;
 import com.example.eatathome.utils.City;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.OneToMany;
 
 import java.util.Set;
 
 public class RestaurantDTO {
 
+    private String id;
 
     private String name;
 
@@ -21,9 +17,20 @@ public class RestaurantDTO {
     private String pictureUrl;
 
     private String description;
+    private Set<Menu> menu;
+    private Set<Order> orders;
 
 
     public RestaurantDTO() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public RestaurantDTO setId(String id) {
+        this.id = id;
+        return this;
     }
 
     public String getName() {
@@ -62,6 +69,23 @@ public class RestaurantDTO {
         return this;
     }
 
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public RestaurantDTO setOrders(Set<Order> orders) {
+        this.orders = orders;
+        return this;
+    }
+
+    public Set<Menu> getMenu() {
+        return menu;
+    }
+
+    public RestaurantDTO setMenu(Set<Menu> menu) {
+        this.menu = menu;
+        return this;
+    }
 
     @Override
     public String toString() {

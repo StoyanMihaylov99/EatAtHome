@@ -1,11 +1,18 @@
 package com.example.eatathome.model.entity;
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+
 import java.math.BigDecimal;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "menu")
-public class Menu extends BaseEntity {
+public class Menu {
+
+    @Id
+    @GeneratedValue(generator = "uuid-string")
+    @GenericGenerator(name = "uuid-string",strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
     @Column(name = "name")
     private String name;
     @Column(name = "description", columnDefinition = "TEXT")
@@ -18,6 +25,16 @@ public class Menu extends BaseEntity {
     public Menu() {
     }
 
+
+    public String getId() {
+        return id;
+    }
+
+
+    public Menu setId(String id) {
+        this.id = id;
+        return this;
+    }
 
     public String getName() {
         return name;

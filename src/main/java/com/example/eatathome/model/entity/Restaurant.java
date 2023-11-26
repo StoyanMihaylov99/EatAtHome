@@ -2,11 +2,18 @@ package com.example.eatathome.model.entity;
 
 import com.example.eatathome.utils.City;
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.Set;
 
 @Entity
 @Table(name = "restaurants")
-public class Restaurant extends BaseEntity {
+public class Restaurant {
+
+    @Id
+    @GeneratedValue(generator = "uuid-string")
+    @GenericGenerator(name = "uuid-string",strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
 
     @Column(name = "name",nullable = false)
     private String name;
@@ -25,6 +32,16 @@ public class Restaurant extends BaseEntity {
     public Restaurant() {
     }
 
+
+    public String getId() {
+        return id;
+    }
+
+
+    public Restaurant setId(String id) {
+        this.id = id;
+        return this;
+    }
 
     public String getName() {
         return name;
