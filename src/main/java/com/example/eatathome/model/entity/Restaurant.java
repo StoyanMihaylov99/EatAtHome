@@ -12,17 +12,16 @@ public class Restaurant {
 
     @Id
     @GeneratedValue(generator = "uuid-string")
-    @GenericGenerator(name = "uuid-string",strategy = "org.hibernate.id.UUIDGenerator")
+    @GenericGenerator(name = "uuid-string", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    @Column(name = "name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
     @Enumerated(EnumType.STRING)
     @Column(name = "city")
     private City city;
-    @Column(name = "picture_url")
-    private String pictureUrl;
-    @Column(name = "description",columnDefinition = "TEXT")
+
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     @OneToMany(mappedBy = "restaurant")
     private Set<Menu> menu;
@@ -61,15 +60,6 @@ public class Restaurant {
         return this;
     }
 
-    public String getPictureUrl() {
-        return pictureUrl;
-    }
-
-    public Restaurant setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
-        return this;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -102,7 +92,7 @@ public class Restaurant {
         return "Restaurant{" +
                 "name='" + name + '\'' +
                 ", city=" + city +
-                ", pictureUrl='" + pictureUrl + '\'' +
+                '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }

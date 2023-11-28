@@ -57,12 +57,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public void updateRestaurant(String id) {
-        if(this.restaurantRepository.existsById(id)){
-            throw new EntityNotFoundException("Entity with ID " + id + " not found");
+    public Optional<RestaurantDTO> updateRestaurant(RestaurantDTO restaurantDTO) {
+        if(!this.restaurantRepository.existsById(restaurantDTO.getId())){
+            throw new EntityNotFoundException("Entity with ID " + restaurantDTO.getId() + " not found");
         }
 
-        RestaurantDTO restaurantToUpdate = modelMapper.map(this.restaurantRepository.findRestaurantsById(id),RestaurantDTO.class);
-        //TODO updating logic and validations;
+        this.restaurantRepository.save(modelMapper.map(restaurantDTO,Restaurant.class));
+        return this.restaurantRepository.findRestaurantsById(restaurantDTO.getId()).map(this::asDTO);
     }
 }

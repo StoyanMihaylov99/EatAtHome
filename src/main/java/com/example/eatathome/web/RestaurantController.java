@@ -5,9 +5,7 @@ import com.example.eatathome.service.Inter.RestaurantService;
 import com.example.eatathome.utils.City;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -34,9 +32,7 @@ public class RestaurantController {
     @GetMapping("/{id}")
     public ResponseEntity<RestaurantDTO> getRestaurantById(@PathVariable("id") String id){
         Optional<RestaurantDTO> currentRestaurant = restaurantService.getRestaurantById(id);
-        if(currentRestaurant.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
+        if(currentRestaurant.isEmpty()) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(currentRestaurant.get());
     }
 
@@ -55,11 +51,9 @@ public class RestaurantController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<RestaurantDTO> updateRestaurant(@PathVariable("id") String id){
-        restaurantService.updateRestaurant(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<RestaurantDTO> updateRestaurant(@PathVariable("id") String id, @RequestBody RestaurantDTO updatedRestaurant){
+        updatedRestaurant.setId(id);
+        Optional<RestaurantDTO> updatedRestaurantDTO = restaurantService.updateRestaurant(updatedRestaurant);
+        return ResponseEntity.ok(updatedRestaurantDTO.get());
     }
-
-
-
 }

@@ -14,6 +14,6 @@ public interface RestaurantService {
     String createRestaurant(RestaurantDTO restaurantDTO);
     void deleteRestaurant(String id);
 
-    void updateRestaurant(String id);
+    Optional<RestaurantDTO> updateRestaurant(RestaurantDTO restaurantDTO);
 
 }

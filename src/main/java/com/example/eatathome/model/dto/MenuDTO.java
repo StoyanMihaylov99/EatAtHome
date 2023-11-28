@@ -1,21 +1,37 @@
 package com.example.eatathome.model.dto;
 
 import com.example.eatathome.model.entity.Restaurant;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
+//TODO validations
 public class MenuDTO {
 
-
+    private String id;
+    @NotNull
+    @Size(min = 5)
     private String name;
-
+    @NotNull
+    @Size(min = 5)
     private String description;
-
+    @NotNull
     private BigDecimal price;
+    @NotNull
 
     private Restaurant restaurant;
 
     public MenuDTO() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public MenuDTO setId(String id) {
+        this.id = id;
+        return this;
     }
 
     public String getName() {

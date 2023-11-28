@@ -1,23 +1,25 @@
 package com.example.eatathome.model.dto;
 
-import com.example.eatathome.model.entity.Menu;
-import java.util.List;
+import com.example.eatathome.model.entity.Restaurant;
+
 import java.util.Set;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 
 public class UserDTO {
 
     private String id;
+    @Size(min = 3, max = 12, message = "Invalid first name")
     private String firstName;
-
+    @Size(min = 3, max = 12, message = "Invalid last name")
     private String lastName;
-
+    @Email
     private String email;
-
+    @Size(min = 3, max = 25, message = "Invalid password")
     private String password;
 
-    private Set<Menu> menu;
-
-    private List<String> addresses;
+    private Set<Restaurant> restaurants;
 
     public UserDTO() {
     }
@@ -67,21 +69,12 @@ public class UserDTO {
         return this;
     }
 
-    public Set<Menu> getMenu() {
-        return menu;
+    public Set<Restaurant> getRestaurants() {
+        return restaurants;
     }
 
-    public UserDTO setMenu(Set<Menu> menu) {
-        this.menu = menu;
-        return this;
-    }
-
-    public List<String> getAddresses() {
-        return addresses;
-    }
-
-    public UserDTO setAddresses(List<String> addresses) {
-        this.addresses = addresses;
+    public UserDTO setRestaurants(Set<Restaurant> restaurants) {
+        this.restaurants = restaurants;
         return this;
     }
 }

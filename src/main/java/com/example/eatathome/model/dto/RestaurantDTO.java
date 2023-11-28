@@ -1,22 +1,25 @@
 package com.example.eatathome.model.dto;
+
 import com.example.eatathome.model.entity.Menu;
 import com.example.eatathome.model.entity.Order;
 import com.example.eatathome.utils.City;
+import com.example.eatathome.utils.EnumValidator;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
 public class RestaurantDTO {
 
     private String id;
-
+    @Size(min = 3, max = 12, message = "name")
     private String name;
 
-
+    @EnumValidator(enumClass = City.class)
     private City city;
-
-    private String pictureUrl;
-
+    @NotNull
     private String description;
+
     private Set<Menu> menu;
     private Set<Order> orders;
 
@@ -48,15 +51,6 @@ public class RestaurantDTO {
 
     public RestaurantDTO setCity(City city) {
         this.city = city;
-        return this;
-    }
-
-    public String getPictureUrl() {
-        return pictureUrl;
-    }
-
-    public RestaurantDTO setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
         return this;
     }
 
@@ -92,7 +86,7 @@ public class RestaurantDTO {
         return "RestaurantDTO{" +
                 "name='" + name + '\'' +
                 ", city=" + city +
-                ", pictureUrl='" + pictureUrl + '\'' +
+                ", pictureUrl='" + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
