@@ -10,4 +10,5 @@ public interface UserService {
     Optional<UserDTO> getUserByEmail(String email);
     String createUser(UserDTO userDTO);
     void deleteUser(String id);
+    Optional<UserDTO> updateUser(UserDTO userDTO);
 }

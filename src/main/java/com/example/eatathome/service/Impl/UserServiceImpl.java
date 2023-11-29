@@ -4,6 +4,7 @@ import com.example.eatathome.model.entity.User;
 import com.example.eatathome.repository.UserRepository;
 import com.example.eatathome.service.Inter.UserService;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(String id) {
         this.userRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<UserDTO> updateUser(UserDTO userDTO) {
+        if(!this.userRepository.existsById(userDTO.getId())){
+            throw new EntityNotFoundException("Entity with ID " + userDTO.getId() + " not found");
+        }
+
+        this.userRepository.save(this.modelMapper.map(userDTO,User.class));
+        return userRepository.findUserById(userDTO.getId()).map(this::asDTO);
     }
 }
