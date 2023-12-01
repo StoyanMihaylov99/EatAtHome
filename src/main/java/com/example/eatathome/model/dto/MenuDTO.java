@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
-//TODO validations
 public class MenuDTO {
 
     private String id;
