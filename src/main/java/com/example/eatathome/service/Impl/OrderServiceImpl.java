@@ -1,6 +1,5 @@
 package com.example.eatathome.service.Impl;
 
-import com.example.eatathome.model.dto.CustomerDTO;
 import com.example.eatathome.model.dto.OrderDTO;
 import com.example.eatathome.model.dto.RestaurantDTO;
 import com.example.eatathome.model.entity.Customer;
@@ -8,6 +7,7 @@ import com.example.eatathome.model.entity.Order;
 import com.example.eatathome.model.entity.Restaurant;
 import com.example.eatathome.repository.OrderRepository;
 import com.example.eatathome.service.Inter.OrderService;
+import com.example.eatathome.service.Inter.RestaurantService;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -21,10 +21,15 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
+    private final RestaurantService restaurantService;
+    private final CustomerServiceImpl customerService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper) {
+
+    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper, RestaurantService restaurantService, CustomerServiceImpl customerService) {
         this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
+        this.restaurantService = restaurantService;
+        this.customerService = customerService;
     }
 
     @Override
@@ -33,14 +38,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> getOrdersByRestaurant(RestaurantDTO restaurantDTO) {
-        Restaurant currentRestaurant = modelMapper.map(restaurantDTO,Restaurant.class);
-        return this.orderRepository.findAllByRestaurant(currentRestaurant).stream().map(this::asDTO).collect(Collectors.toList());
+    public List<OrderDTO> getOrdersByRestaurant(String restaurantId) {
+        Optional<RestaurantDTO> currentRestaurant = this.restaurantService.getRestaurantById(restaurantId);
+        modelMapper.map(currentRestaurant, Restaurant.class);
+        return this.orderRepository.findAllByRestaurant(modelMapper.map(currentRestaurant, Restaurant.class)).stream().map(this::asDTO).collect(Collectors.toList());
     }
 
     @Override
-    public List<OrderDTO> getOrdersByCustomer(CustomerDTO customerDTO) {
-        Customer currentCustomer = modelMapper.map(customerDTO,Customer.class);
+    public List<OrderDTO> getOrdersByCustomer(String id) {
+        Customer currentCustomer = modelMapper.map(this.customerService.getCustomerById(id), Customer.class);
         return this.orderRepository.findAllByCustomer(currentCustomer).stream().map(this::asDTO).collect(Collectors.toList());
     }
 
@@ -60,11 +66,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Optional<OrderDTO> updateOrder(OrderDTO orderDTO) {
-        if(!this.orderRepository.existsById(orderDTO.getId())){
+        if (!this.orderRepository.existsById(orderDTO.getId())) {
             throw new EntityNotFoundException("Entity with ID " + orderDTO.getId() + " not found");
         }
 
-        this.orderRepository.save(modelMapper.map(orderDTO,Order.class));
+        this.orderRepository.save(modelMapper.map(orderDTO, Order.class));
         return this.orderRepository.findById(orderDTO.getId()).map(this::asDTO);
     }
 

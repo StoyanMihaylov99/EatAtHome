@@ -1,12 +1,12 @@
 package com.example.eatathome.model.entity;
 
+import com.example.eatathome.utils.City;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
-import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -24,6 +24,12 @@ public class Order{
     private BigDecimal totalCost;
     @ManyToOne
     private Customer customer;
+    @ManyToMany
+    @Column(name = "menu_id")
+    private List<Menu> items;
+    @Enumerated(EnumType.STRING)
+    private City city;
+
 
 
     public Order() {
@@ -63,6 +69,33 @@ public class Order{
 
     public Order setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
+        return this;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public Order setCustomer(Customer customer) {
+        this.customer = customer;
+        return this;
+    }
+
+    public List<Menu> getItems() {
+        return items;
+    }
+
+    public Order setItems(List<Menu> items) {
+        this.items = items;
+        return this;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public Order setCity(City city) {
+        this.city = city;
         return this;
     }
 

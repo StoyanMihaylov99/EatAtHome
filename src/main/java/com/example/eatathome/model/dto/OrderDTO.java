@@ -1,28 +1,28 @@
 package com.example.eatathome.model.dto;
-
 import com.example.eatathome.model.entity.Customer;
+import com.example.eatathome.model.entity.Menu;
 import com.example.eatathome.model.entity.Restaurant;
 import com.example.eatathome.utils.City;
 import com.example.eatathome.utils.EnumValidator;
 import jakarta.validation.constraints.NotNull;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class OrderDTO {
     private String id;
     @NotNull
     private LocalDateTime DateCreatedOrder;
     @NotNull
-
     private Restaurant restaurant;
     @NotNull
-    private Customer customer;
-    @NotNull
-
     private BigDecimal totalCost;
+    @NotNull
+    private Customer customer;
     @EnumValidator(enumClass = City.class)
     private City city;
+
+    private List<Menu> items;
 
     public OrderDTO() {
     }
@@ -78,6 +78,15 @@ public class OrderDTO {
 
     public OrderDTO setCity(City city) {
         this.city = city;
+        return this;
+    }
+
+    public List<Menu> getItems() {
+        return items;
+    }
+
+    public OrderDTO setItems(List<Menu> items) {
+        this.items = items;
         return this;
     }
 }

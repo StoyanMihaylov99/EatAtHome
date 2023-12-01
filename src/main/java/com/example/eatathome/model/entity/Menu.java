@@ -1,7 +1,6 @@
 package com.example.eatathome.model.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-
 import java.math.BigDecimal;
 
 

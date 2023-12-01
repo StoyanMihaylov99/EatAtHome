@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface OrderService {
 
     Optional<OrderDTO> getOrderById(String id);
-    List<OrderDTO> getOrdersByRestaurant(RestaurantDTO restaurantDTO);
-    List<OrderDTO> getOrdersByCustomer(CustomerDTO customerDTO);
+    List<OrderDTO> getOrdersByRestaurant(String restaurantId);
+    List<OrderDTO> getOrdersByCustomer(String id);
 
     void deleteOrderById(String id);
     String createOrder(OrderDTO orderDTO);
