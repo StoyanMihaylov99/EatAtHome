@@ -9,6 +9,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+//TODO testing all requests.
+
+
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -43,7 +46,7 @@ public class OrderController {
 
     @PutMapping("/create")
     public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO, UriComponentsBuilder uriComponentsBuilder){
-        String orderId = orderService.createOrder(orderDTO);
+        String orderId = this.orderService.createOrder(orderDTO);
         URI location = uriComponentsBuilder.path("/orders/{id}").buildAndExpand(orderId).toUri();
         return ResponseEntity.created(location).build();
     }
@@ -51,17 +54,14 @@ public class OrderController {
     @PutMapping("/update/{id}")
     public ResponseEntity<OrderDTO> updateOrder(@PathVariable("id") String id, @RequestBody OrderDTO updatedOrder){
         updatedOrder.setId(id);
-        Optional<OrderDTO> newOrder = orderService.updateOrder(updatedOrder);
+        Optional<OrderDTO> newOrder = this.orderService.updateOrder(updatedOrder);
         return ResponseEntity.ok(newOrder.get());
 
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<OrderDTO> deleteOrder(@PathVariable("id") String id) {
-        orderService.deleteOrderById(id);
+        this.orderService.deleteOrderById(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
 }

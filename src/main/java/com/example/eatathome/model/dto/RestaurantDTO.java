@@ -21,7 +21,6 @@ public class RestaurantDTO {
     private String description;
 
     private Set<Menu> menu;
-    private Set<Order> orders;
 
 
     public RestaurantDTO() {
@@ -60,15 +59,6 @@ public class RestaurantDTO {
 
     public RestaurantDTO setDescription(String description) {
         this.description = description;
-        return this;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public RestaurantDTO setOrders(Set<Order> orders) {
-        this.orders = orders;
         return this;
     }
 

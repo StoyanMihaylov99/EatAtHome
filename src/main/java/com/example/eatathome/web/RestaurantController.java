@@ -22,7 +22,7 @@ public class RestaurantController {
 
     @GetMapping("city/{city}")
     public ResponseEntity<List<RestaurantDTO>> getRestaurantByCity(@PathVariable("city") City city) {
-        List<RestaurantDTO> allRestaurants = restaurantService.getRestaurantByCity(city);
+        List<RestaurantDTO> allRestaurants = this.restaurantService.getRestaurantByCity(city);
 
         if (allRestaurants.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -31,14 +31,14 @@ public class RestaurantController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<RestaurantDTO> getRestaurantById(@PathVariable("id") String id){
-        Optional<RestaurantDTO> currentRestaurant = restaurantService.getRestaurantById(id);
+        Optional<RestaurantDTO> currentRestaurant = this.restaurantService.getRestaurantById(id);
         if(currentRestaurant.isEmpty()) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(currentRestaurant.get());
     }
 
     @PutMapping("/create")
     public ResponseEntity<RestaurantDTO> create(@RequestBody RestaurantDTO restaurantDTO, UriComponentsBuilder uriComponentsBuilder){
-      String restaurantId = restaurantService.createRestaurant(restaurantDTO);
+      String restaurantId = this.restaurantService.createRestaurant(restaurantDTO);
         URI location = uriComponentsBuilder.path("/restaurants/{id}").buildAndExpand(restaurantId).toUri();
       return ResponseEntity.created(location).build();
     }
@@ -46,14 +46,14 @@ public class RestaurantController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<RestaurantDTO> deleteRestaurant(@PathVariable("id") String id){
-    restaurantService.deleteRestaurant(id);
+    this.restaurantService.deleteRestaurant(id);
     return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<RestaurantDTO> updateRestaurant(@PathVariable("id") String id, @RequestBody RestaurantDTO updatedRestaurant){
         updatedRestaurant.setId(id);
-        Optional<RestaurantDTO> updatedRestaurantDTO = restaurantService.updateRestaurant(updatedRestaurant);
+        Optional<RestaurantDTO> updatedRestaurantDTO = this.restaurantService.updateRestaurant(updatedRestaurant);
         return ResponseEntity.ok(updatedRestaurantDTO.get());
     }
 }

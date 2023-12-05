@@ -18,7 +18,7 @@ public class Order{
     private String id;
     @Column(name = "date_of_created_order")
     private LocalDateTime DateCreatedOrder;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Restaurant restaurant;
     @Column(name = "total_cost")
     private BigDecimal totalCost;
@@ -99,14 +99,5 @@ public class Order{
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id='" + id + '\'' +
-                ", DateCreatedOrder=" + DateCreatedOrder +
-                ", restaurant=" + restaurant +
-                ", totalCost=" + totalCost +
-                ", customer=" + customer +
-                '}';
-    }
+
 }

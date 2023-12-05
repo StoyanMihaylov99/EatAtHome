@@ -1,6 +1,9 @@
 package com.example.eatathome.model.entity;
 
 import com.example.eatathome.utils.City;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,10 +26,9 @@ public class Restaurant {
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
-    @OneToMany(mappedBy = "restaurant")
+
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Menu> menu;
-    @OneToMany(mappedBy = "restaurant")
-    private Set<Order> orders;
 
     public Restaurant() {
     }
@@ -68,7 +70,7 @@ public class Restaurant {
         this.description = description;
         return this;
     }
-
+    @JsonIgnore
     public Set<Menu> getMenu() {
         return menu;
     }
@@ -78,22 +80,4 @@ public class Restaurant {
         return this;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public Restaurant setOrders(Set<Order> orders) {
-        this.orders = orders;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "Restaurant{" +
-                "name='" + name + '\'' +
-                ", city=" + city +
-                '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

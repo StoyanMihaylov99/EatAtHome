@@ -23,7 +23,7 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<Restaurant> restaurants;
 
     public User() {

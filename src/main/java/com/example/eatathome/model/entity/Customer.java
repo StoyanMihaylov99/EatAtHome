@@ -1,6 +1,7 @@
 package com.example.eatathome.model.entity;
 
 import com.example.eatathome.utils.City;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,7 +20,7 @@ public class Customer {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "city")
+    @Enumerated(EnumType.STRING)
     private City city;
     @Column(name = "address")
     private String address;
@@ -27,7 +28,8 @@ public class Customer {
     private String phoneNumber;
     @Column(name = "email")
     private String email;
-    @OneToMany(mappedBy = "customer")
+
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<Order> orders;
 
 

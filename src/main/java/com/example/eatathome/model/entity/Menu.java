@@ -1,4 +1,5 @@
 package com.example.eatathome.model.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ public class Menu {
     private String description;
     @Column(name = "price")
     private BigDecimal price;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Restaurant restaurant;
 
     public Menu() {
@@ -61,6 +62,8 @@ public class Menu {
         this.price = price;
         return this;
     }
+
+    @JsonIgnore
 
     public Restaurant getRestaurant() {
         return restaurant;

@@ -3,6 +3,9 @@ package com.example.eatathome.model.dto;
 import com.example.eatathome.model.entity.Order;
 import com.example.eatathome.utils.City;
 import com.example.eatathome.utils.EnumValidator;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -96,7 +99,7 @@ public class CustomerDTO {
         this.email = email;
         return this;
     }
-
+    @JsonIgnore
     public Set<Order> getOrders() {
         return orders;
     }

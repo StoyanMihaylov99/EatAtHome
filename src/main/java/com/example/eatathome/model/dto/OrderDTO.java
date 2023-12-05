@@ -89,4 +89,15 @@ public class OrderDTO {
         this.items = items;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "OrderDTO{" +
+                "id='" + id + '\'' +
+                ", DateCreatedOrder=" + DateCreatedOrder +
+                ", totalCost=" + totalCost +
+                ", customer=" + customer +
+                ", city=" + city +
+                '}';
+    }
 }

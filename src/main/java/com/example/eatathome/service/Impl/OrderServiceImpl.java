@@ -12,6 +12,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -59,8 +60,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String createOrder(OrderDTO orderDTO) {
-        Order newOrder = new Order().setId(UUID.randomUUID().toString()).setRestaurant(orderDTO.getRestaurant()).setTotalCost(orderDTO.getTotalCost()).
-                setDateCreatedOrder(orderDTO.getDateCreatedOrder());
+        Order newOrder = new Order().setId(UUID.randomUUID().toString()).setRestaurant(orderDTO.getRestaurant()).setTotalCost(orderDTO.getTotalCost())
+                .setCity(orderDTO.getCity()).setCustomer(orderDTO.getCustomer()).setDateCreatedOrder(LocalDateTime.now());
         return this.orderRepository.save(newOrder).getId();
     }
 
