@@ -1,10 +1,10 @@
 package com.example.eatathome.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.GenericGenerator;
 
-import java.util.List;
+import org.hibernate.annotations.GenericGenerator;
 import java.util.Set;
 
 @Entity
@@ -23,8 +23,10 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany
+    @JsonManagedReference
     private Set<Restaurant> restaurants;
+
 
     public User() {
     }
@@ -72,6 +74,16 @@ public class User {
 
     public User setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+
+    public Set<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public User setRestaurants(Set<Restaurant> restaurants) {
+        this.restaurants = restaurants;
         return this;
     }
 

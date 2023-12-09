@@ -36,7 +36,7 @@ public class RestaurantController {
         return ResponseEntity.ok(currentRestaurant.get());
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<RestaurantDTO> create(@RequestBody RestaurantDTO restaurantDTO, UriComponentsBuilder uriComponentsBuilder){
       String restaurantId = this.restaurantService.createRestaurant(restaurantDTO);
         URI location = uriComponentsBuilder.path("/restaurants/{id}").buildAndExpand(restaurantId).toUri();
@@ -44,13 +44,13 @@ public class RestaurantController {
     }
 
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<RestaurantDTO> deleteRestaurant(@PathVariable("id") String id){
     this.restaurantService.deleteRestaurant(id);
     return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<RestaurantDTO> updateRestaurant(@PathVariable("id") String id, @RequestBody RestaurantDTO updatedRestaurant){
         updatedRestaurant.setId(id);
         Optional<RestaurantDTO> updatedRestaurantDTO = this.restaurantService.updateRestaurant(updatedRestaurant);

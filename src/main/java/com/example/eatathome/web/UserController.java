@@ -39,7 +39,7 @@ public class UserController {
         return ResponseEntity.ok(user.get());
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO, UriComponentsBuilder uriComponentsBuilder){
 
         String userID = userService.createUser(userDTO);
@@ -48,13 +48,13 @@ public class UserController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<UserDTO> deleteUser(@PathVariable("id") String id){
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable("id") String id, @RequestBody UserDTO updatedUser){
         updatedUser.setId(id);
         Optional<UserDTO> updateUserForReturn = userService.updateUser(updatedUser);

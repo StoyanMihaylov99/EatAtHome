@@ -40,8 +40,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public String createMenu(MenuDTO menuDTO) {
-        Menu newMenu = new Menu().setId(UUID.randomUUID().toString()).setName(menuDTO.getName()).setDescription(menuDTO.getDescription()).setPrice(menuDTO.getPrice())
-                .setRestaurant(menuDTO.getRestaurant());
+        Menu newMenu = new Menu().setId(UUID.randomUUID().toString()).setName(menuDTO.getName()).setDescription(menuDTO.getDescription()).setPrice(menuDTO.getPrice());
         return this.menuRepository.save(newMenu).getId();
     }
 

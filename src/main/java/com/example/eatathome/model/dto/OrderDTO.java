@@ -1,28 +1,33 @@
 package com.example.eatathome.model.dto;
+
 import com.example.eatathome.model.entity.Customer;
 import com.example.eatathome.model.entity.Menu;
 import com.example.eatathome.model.entity.Restaurant;
 import com.example.eatathome.utils.City;
 import com.example.eatathome.utils.EnumValidator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public class OrderDTO {
     private String id;
     @NotNull
     private LocalDateTime DateCreatedOrder;
-    @NotNull
-    private Restaurant restaurant;
+    private String address;
     @NotNull
     private BigDecimal totalCost;
     @NotNull
     private Customer customer;
     @EnumValidator(enumClass = City.class)
     private City city;
-
     private List<Menu> items;
+
+    private List<Restaurant> restaurantSet;
 
     public OrderDTO() {
     }
@@ -42,15 +47,6 @@ public class OrderDTO {
 
     public OrderDTO setDateCreatedOrder(LocalDateTime dateCreatedOrder) {
         DateCreatedOrder = dateCreatedOrder;
-        return this;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public OrderDTO setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
         return this;
     }
 
@@ -87,6 +83,24 @@ public class OrderDTO {
 
     public OrderDTO setItems(List<Menu> items) {
         this.items = items;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public OrderDTO setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public List<Restaurant> getRestaurantSet() {
+        return restaurantSet;
+    }
+
+    public OrderDTO setRestaurantSet(List<Restaurant> restaurantSet) {
+        this.restaurantSet = restaurantSet;
         return this;
     }
 

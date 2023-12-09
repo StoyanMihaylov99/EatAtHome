@@ -29,14 +29,14 @@ public class CustomerController {
         return ResponseEntity.ok(customer.get());
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO customerDTO, UriComponentsBuilder uriComponentsBuilder){
         String CustomerId = this.customerService.createCustomer(customerDTO);
         URI location = uriComponentsBuilder.path("/customers/{id}").buildAndExpand(CustomerId).toUri();
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") String id,@RequestBody CustomerDTO customerToUpdate){
         customerToUpdate.setId(id);
         Optional<CustomerDTO> updatedCustomer = this.customerService.updateCustomer(customerToUpdate);
@@ -44,7 +44,7 @@ public class CustomerController {
 
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<CustomerDTO> deleteCustomer(@PathVariable("id") String id){
         this.customerService.deleteUserById(id);
         return ResponseEntity.noContent().build();

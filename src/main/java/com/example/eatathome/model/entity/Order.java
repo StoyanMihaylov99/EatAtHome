@@ -1,6 +1,8 @@
 package com.example.eatathome.model.entity;
 
 import com.example.eatathome.utils.City;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import java.math.BigDecimal;
@@ -18,15 +20,18 @@ public class Order{
     private String id;
     @Column(name = "date_of_created_order")
     private LocalDateTime DateCreatedOrder;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Restaurant restaurant;
     @Column(name = "total_cost")
     private BigDecimal totalCost;
+    @Column(name = "address")
+    private String address;
     @ManyToOne
+    @JsonManagedReference
     private Customer customer;
     @ManyToMany
     @Column(name = "menu_id")
     private List<Menu> items;
+    @ManyToMany(mappedBy = "orders")
+    private List<Restaurant> restaurants;
     @Enumerated(EnumType.STRING)
     private City city;
 
@@ -50,15 +55,6 @@ public class Order{
 
     public Order setDateCreatedOrder(LocalDateTime dateCreatedOrder) {
         DateCreatedOrder = dateCreatedOrder;
-        return this;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public Order setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
         return this;
     }
 
@@ -99,5 +95,34 @@ public class Order{
         return this;
     }
 
+    public String getAddress() {
+        return address;
+    }
 
+    public Order setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public Order setRestaurants(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id='" + id + '\'' +
+                ", DateCreatedOrder=" + DateCreatedOrder +
+                ", totalCost=" + totalCost +
+                ", address='" + address + '\'' +
+                ", customer=" + customer +
+                ", items=" + items +
+                ", city=" + city +
+                '}';
+    }
 }

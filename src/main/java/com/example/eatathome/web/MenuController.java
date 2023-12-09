@@ -28,22 +28,24 @@ public class MenuController{
         return ResponseEntity.ok(menuById.get());
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<MenuDTO> createMenu(@RequestBody MenuDTO menuDTO, UriComponentsBuilder uriComponentsBuilder) {
         String menuId = this.menuService.createMenu(menuDTO);
         URI location = uriComponentsBuilder.path("/menus/{id}").buildAndExpand(menuId).toUri();
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<MenuDTO> updateMenu(@PathVariable("id") String id,@RequestBody MenuDTO menuForUpdate){
         menuForUpdate.setId(id);
         Optional<MenuDTO> updatedMenu = this.menuService.updateMenu(menuForUpdate);
         return ResponseEntity.ok(updatedMenu.get());
     }
 
-    @DeleteMapping
-    public ResponseEntity<MenuDTO> deleteMenu(String id){
+    //TODO deleting fail
+    //Cannot delete or update a parent row: a foreign key constraint fails (`eat_at_home`.`restaurants_menu`,FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`))
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MenuDTO> deleteMenu(@PathVariable("id") String id){
         this.menuService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

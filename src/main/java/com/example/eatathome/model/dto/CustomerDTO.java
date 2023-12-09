@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Set;
+
 public class CustomerDTO {
 
     private String id;
@@ -28,6 +29,7 @@ public class CustomerDTO {
     private String address;
     @NotNull
     @Size(min = 10, max = 10)
+    //TODO Validation problem
     private String phoneNumber;
     @Email
     private String email;
@@ -99,6 +101,7 @@ public class CustomerDTO {
         this.email = email;
         return this;
     }
+
     @JsonIgnore
     public Set<Order> getOrders() {
         return orders;

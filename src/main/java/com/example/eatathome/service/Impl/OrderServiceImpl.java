@@ -22,27 +22,18 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
-    private final RestaurantService restaurantService;
     private final CustomerServiceImpl customerService;
 
 
     public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper, RestaurantService restaurantService, CustomerServiceImpl customerService) {
         this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
-        this.restaurantService = restaurantService;
         this.customerService = customerService;
     }
 
     @Override
     public Optional<OrderDTO> getOrderById(String id) {
         return this.orderRepository.findById(id).map(this::asDTO);
-    }
-
-    @Override
-    public List<OrderDTO> getOrdersByRestaurant(String restaurantId) {
-        Optional<RestaurantDTO> currentRestaurant = this.restaurantService.getRestaurantById(restaurantId);
-        modelMapper.map(currentRestaurant, Restaurant.class);
-        return this.orderRepository.findAllByRestaurant(modelMapper.map(currentRestaurant, Restaurant.class)).stream().map(this::asDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -60,8 +51,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String createOrder(OrderDTO orderDTO) {
-        Order newOrder = new Order().setId(UUID.randomUUID().toString()).setRestaurant(orderDTO.getRestaurant()).setTotalCost(orderDTO.getTotalCost())
-                .setCity(orderDTO.getCity()).setCustomer(orderDTO.getCustomer()).setDateCreatedOrder(LocalDateTime.now());
+        Order newOrder = new Order().setId(UUID.randomUUID().toString()).setTotalCost(orderDTO.getTotalCost())
+                .setCity(orderDTO.getCity()).setCustomer(orderDTO.getCustomer()).setDateCreatedOrder(LocalDateTime.now()).setAddress(orderDTO.getAddress());
         return this.orderRepository.save(newOrder).getId();
     }
 

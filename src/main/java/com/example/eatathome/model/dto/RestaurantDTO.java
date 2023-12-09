@@ -4,6 +4,7 @@ import com.example.eatathome.model.entity.Menu;
 import com.example.eatathome.model.entity.Order;
 import com.example.eatathome.utils.City;
 import com.example.eatathome.utils.EnumValidator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -62,6 +63,7 @@ public class RestaurantDTO {
         return this;
     }
 
+    @JsonIgnore
     public Set<Menu> getMenu() {
         return menu;
     }

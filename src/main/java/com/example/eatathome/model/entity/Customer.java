@@ -1,6 +1,7 @@
 package com.example.eatathome.model.entity;
 
 import com.example.eatathome.utils.City;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -13,7 +14,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(generator = "uuid-string")
-    @GenericGenerator(name = "uuid-string",strategy = "org.hibernate.id.UUIDGenerator")
+    @GenericGenerator(name = "uuid-string", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
     @Column(name = "first_name")
@@ -28,8 +29,8 @@ public class Customer {
     private String phoneNumber;
     @Column(name = "email")
     private String email;
-
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JsonBackReference
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Order> orders;
 
 

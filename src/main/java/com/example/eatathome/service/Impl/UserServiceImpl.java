@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String createUser(UserDTO userDTO) {
+        // TODO: email validation for exisitng
         User newUser = new User().setFirstName(userDTO.getFirstName()).setLastName(userDTO.getLastName()).
                 setEmail(userDTO.getEmail()).setPassword(userDTO.getPassword()).setId(UUID.randomUUID().toString());
 

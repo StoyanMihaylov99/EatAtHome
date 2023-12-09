@@ -4,6 +4,7 @@ import com.example.eatathome.model.entity.Restaurant;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 
@@ -14,7 +15,8 @@ public class UserDTO {
     private String firstName;
     @Size(min = 3, max = 12, message = "Invalid last name")
     private String lastName;
-    @Email
+    @Email(regexp = "@")
+    //TODO  validation on email
     private String email;
     @Size(min = 3, max = 25, message = "Invalid password")
     private String password;
@@ -68,6 +70,7 @@ public class UserDTO {
         this.password = password;
         return this;
     }
+
 
     public Set<Restaurant> getRestaurants() {
         return restaurants;

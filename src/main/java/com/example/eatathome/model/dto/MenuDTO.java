@@ -17,9 +17,6 @@ public class MenuDTO {
     private String description;
     @NotNull
     private BigDecimal price;
-    @NotNull
-
-    private Restaurant restaurant;
 
     public MenuDTO() {
     }
@@ -57,15 +54,6 @@ public class MenuDTO {
 
     public MenuDTO setPrice(BigDecimal price) {
         this.price = price;
-        return this;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public MenuDTO setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
         return this;
     }
 }

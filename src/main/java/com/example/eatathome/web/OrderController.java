@@ -29,14 +29,6 @@ public class OrderController {
         return ResponseEntity.ok(orderById.get());
     }
 
-    @GetMapping("/restaurant/{id}")
-    public ResponseEntity<List<OrderDTO>> getByRestaurant(@PathVariable("id") String restaurantId){
-
-        List<OrderDTO> ordersByRestaurants = this.orderService.getOrdersByRestaurant(restaurantId);
-        if(ordersByRestaurants.isEmpty()) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(ordersByRestaurants);
-    }
-
     @GetMapping("/customer/{id}")
     public ResponseEntity<List<OrderDTO>> getByCustomer(@PathVariable("id") String customerId){
       List<OrderDTO> ordersByCustomer = this.orderService.getOrdersByCustomer(customerId);
@@ -44,14 +36,14 @@ public class OrderController {
       return ResponseEntity.ok(ordersByCustomer);
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO, UriComponentsBuilder uriComponentsBuilder){
         String orderId = this.orderService.createOrder(orderDTO);
         URI location = uriComponentsBuilder.path("/orders/{id}").buildAndExpand(orderId).toUri();
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<OrderDTO> updateOrder(@PathVariable("id") String id, @RequestBody OrderDTO updatedOrder){
         updatedOrder.setId(id);
         Optional<OrderDTO> newOrder = this.orderService.updateOrder(updatedOrder);
@@ -59,7 +51,7 @@ public class OrderController {
 
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<OrderDTO> deleteOrder(@PathVariable("id") String id) {
         this.orderService.deleteOrderById(id);
         return ResponseEntity.noContent().build();
