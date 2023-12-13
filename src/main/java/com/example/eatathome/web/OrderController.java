@@ -36,7 +36,7 @@ public class OrderController {
       return ResponseEntity.ok(ordersByCustomer);
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO, UriComponentsBuilder uriComponentsBuilder){
         String orderId = this.orderService.createOrder(orderDTO);
         URI location = uriComponentsBuilder.path("/orders/{id}").buildAndExpand(orderId).toUri();

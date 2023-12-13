@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public String createCustomer(CustomerDTO customerDTO) {
         Customer newCustomer = new Customer().setId(UUID.randomUUID().toString()).setCity(customerDTO.getCity()).setAddress(customerDTO.getAddress()).
-                setEmail(customerDTO.getEmail()).setOrders(customerDTO.getOrders()).setFirstName(customerDTO.getFirstName()).setLastName(customerDTO.getLastName()).
+                setEmail(customerDTO.getEmail()).setFirstName(customerDTO.getFirstName()).setLastName(customerDTO.getLastName()).
                 setPhoneNumber(customerDTO.getPhoneNumber());
         return this.customerRepository.save(newCustomer).getId();
 

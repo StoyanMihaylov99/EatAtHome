@@ -32,14 +32,14 @@ public class UserController {
     }
 
 
-    @GetMapping("email/{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<UserDTO> getByEmail(@PathVariable("email") String email){
         Optional<UserDTO> user = userService.getUserByEmail(email);
         if(user.isEmpty()) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(user.get());
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO, UriComponentsBuilder uriComponentsBuilder){
 
         String userID = userService.createUser(userDTO);

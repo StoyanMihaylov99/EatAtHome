@@ -29,7 +29,7 @@ public class CustomerController {
         return ResponseEntity.ok(customer.get());
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO customerDTO, UriComponentsBuilder uriComponentsBuilder){
         String CustomerId = this.customerService.createCustomer(customerDTO);
         URI location = uriComponentsBuilder.path("/customers/{id}").buildAndExpand(CustomerId).toUri();

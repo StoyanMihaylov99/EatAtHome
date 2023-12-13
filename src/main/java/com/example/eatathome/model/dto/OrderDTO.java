@@ -25,9 +25,9 @@ public class OrderDTO {
     private Customer customer;
     @EnumValidator(enumClass = City.class)
     private City city;
-    private List<Menu> items;
+    private Set<Menu> menu;
 
-    private List<Restaurant> restaurantSet;
+    private Set<Restaurant> restaurant;
 
     public OrderDTO() {
     }
@@ -47,6 +47,15 @@ public class OrderDTO {
 
     public OrderDTO setDateCreatedOrder(LocalDateTime dateCreatedOrder) {
         DateCreatedOrder = dateCreatedOrder;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public OrderDTO setAddress(String address) {
+        this.address = address;
         return this;
     }
 
@@ -77,41 +86,21 @@ public class OrderDTO {
         return this;
     }
 
-    public List<Menu> getItems() {
-        return items;
+    public Set<Menu> getMenu() {
+        return menu;
     }
 
-    public OrderDTO setItems(List<Menu> items) {
-        this.items = items;
+    public OrderDTO setMenu(Set<Menu> menu) {
+        this.menu = menu;
         return this;
     }
 
-    public String getAddress() {
-        return address;
+    public Set<Restaurant> getRestaurant() {
+        return restaurant;
     }
 
-    public OrderDTO setAddress(String address) {
-        this.address = address;
+    public OrderDTO setRestaurant(Set<Restaurant> restaurant) {
+        this.restaurant = restaurant;
         return this;
-    }
-
-    public List<Restaurant> getRestaurantSet() {
-        return restaurantSet;
-    }
-
-    public OrderDTO setRestaurantSet(List<Restaurant> restaurantSet) {
-        this.restaurantSet = restaurantSet;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderDTO{" +
-                "id='" + id + '\'' +
-                ", DateCreatedOrder=" + DateCreatedOrder +
-                ", totalCost=" + totalCost +
-                ", customer=" + customer +
-                ", city=" + city +
-                '}';
     }
 }

@@ -63,7 +63,7 @@ public class RestaurantDTO {
         return this;
     }
 
-    @JsonIgnore
+
     public Set<Menu> getMenu() {
         return menu;
     }

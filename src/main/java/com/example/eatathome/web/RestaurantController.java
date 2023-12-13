@@ -36,7 +36,7 @@ public class RestaurantController {
         return ResponseEntity.ok(currentRestaurant.get());
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<RestaurantDTO> create(@RequestBody RestaurantDTO restaurantDTO, UriComponentsBuilder uriComponentsBuilder){
       String restaurantId = this.restaurantService.createRestaurant(restaurantDTO);
         URI location = uriComponentsBuilder.path("/restaurants/{id}").buildAndExpand(restaurantId).toUri();

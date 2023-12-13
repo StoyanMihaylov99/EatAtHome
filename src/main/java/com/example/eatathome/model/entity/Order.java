@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -25,20 +26,13 @@ public class Order{
     @Column(name = "address")
     private String address;
     @ManyToOne
-    @JsonManagedReference
     private Customer customer;
     @ManyToMany
-    @Column(name = "menu_id")
-    private List<Menu> items;
-    @ManyToMany(mappedBy = "orders")
-    private List<Restaurant> restaurants;
+    private Set<Menu> menu;
+    @ManyToMany
+    private Set<Restaurant> restaurants;
     @Enumerated(EnumType.STRING)
     private City city;
-
-
-
-    public Order() {
-    }
 
     public String getId() {
         return id;
@@ -58,40 +52,12 @@ public class Order{
         return this;
     }
 
-
     public BigDecimal getTotalCost() {
         return totalCost;
     }
 
     public Order setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
-        return this;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public Order setCustomer(Customer customer) {
-        this.customer = customer;
-        return this;
-    }
-
-    public List<Menu> getItems() {
-        return items;
-    }
-
-    public Order setItems(List<Menu> items) {
-        this.items = items;
-        return this;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public Order setCity(City city) {
-        this.city = city;
         return this;
     }
 
@@ -104,25 +70,39 @@ public class Order{
         return this;
     }
 
-    public List<Restaurant> getRestaurants() {
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public Order setCustomer(Customer customer) {
+        this.customer = customer;
+        return this;
+    }
+
+    public Set<Menu> getMenu() {
+        return menu;
+    }
+
+    public Order setMenu(Set<Menu> menu) {
+        this.menu = menu;
+        return this;
+    }
+
+    public Set<Restaurant> getRestaurants() {
         return restaurants;
     }
 
-    public Order setRestaurants(List<Restaurant> restaurants) {
+    public Order setRestaurants(Set<Restaurant> restaurants) {
         this.restaurants = restaurants;
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id='" + id + '\'' +
-                ", DateCreatedOrder=" + DateCreatedOrder +
-                ", totalCost=" + totalCost +
-                ", address='" + address + '\'' +
-                ", customer=" + customer +
-                ", items=" + items +
-                ", city=" + city +
-                '}';
+    public City getCity() {
+        return city;
+    }
+
+    public Order setCity(City city) {
+        this.city = city;
+        return this;
     }
 }

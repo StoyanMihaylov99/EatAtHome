@@ -29,9 +29,6 @@ public class Customer {
     private String phoneNumber;
     @Column(name = "email")
     private String email;
-    @JsonBackReference
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Order> orders;
 
 
     public Customer() {
@@ -100,15 +97,6 @@ public class Customer {
         return this;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public Customer setOrders(Set<Order> orders) {
-        this.orders = orders;
-        return this;
-    }
-
     @Override
     public String toString() {
         return "Customer{" +
@@ -119,7 +107,6 @@ public class Customer {
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", orders=" + orders +
                 '}';
     }
 }

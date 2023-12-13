@@ -34,8 +34,6 @@ public class CustomerDTO {
     @Email
     private String email;
 
-    private Set<Order> orders;
-
     public CustomerDTO() {
     }
 
@@ -99,16 +97,6 @@ public class CustomerDTO {
 
     public CustomerDTO setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    @JsonIgnore
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public CustomerDTO setOrders(Set<Order> orders) {
-        this.orders = orders;
         return this;
     }
 }
